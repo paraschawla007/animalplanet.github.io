@@ -39,16 +39,14 @@
 
 if(isset($_POST["sb"]))
 {
-	$con=mysql_connect("localhost","root","");
+	$con=mysqli_connect("localhost","root","","AnimalPlanet");
 	if(!$con)
 		die("<h1>DataBase Connection Error</h1>");
-
-	mysql_select_db("AnimalPlanet");
-	$q1="select * from Admin";
-	$rs1=mysql_query($q1,$con);
-	$rec1=mysql_fetch_array($rs1,MYSQL_ASSOC);
-	$pwd=$rec1["Password"];
-	$UserID=$_SESSION["uid"];
+	$q1="select * from Users";
+	$rs1=mysqli_query($con,$q1);
+	$rec1=$rs1->fetch_assoc();
+	$pwd=$rec1["password"];
+	$UserID=$_SESSION["id"];
 	$npsw=$_POST["npsw"];
 	$cpsw=$_POST["cpsw"];
 
@@ -58,11 +56,11 @@ if(isset($_POST["sb"]))
 	if($npsw!=$cpsw)
 		print("New Password and Confirm Password must Match");
 
-	$q="update Admin set Password='$npsw' where UserID='$UserID' ";
-	$rs=mysql_query($q,$con);
-	print("Password Changed Successfully");
+	$q="update Users set password='$npsw' where id='$UserID' ";
+	$rs=mysqli_query($con,$q);
+	print("<h3>Password Changed Successfully</h3>");
 
-	mysql_close($con);
+	mysqli_close($con);
 }
 
 ?>

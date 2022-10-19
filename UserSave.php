@@ -1,27 +1,33 @@
 <?php
 if(isset($_POST["sb"]))
 {
-	$con=mysql_connect("localhost","root","");
-	if(!$con)
-		die("<h1>DataBase Connection Error</h1>");
-
-	mysql_select_db("AnimalPlanet");
+	$con=mysqli_connect("localhost","root","","AnimalPlanet");
+	if(mysqli_connect_errno())
+	{
+		echo "Failed to connect to MySql:" . mysqli_connect_error();
+	}
 
 	$uid=$_POST["uid"];
 	$pwd=$_POST["pwd"];
 	$username=$_POST["username"];
 	$eid=$_POST["eid"];
 	$gn=$_POST["gn"];
-	$sque=$_POST["sque"];
-	$sans=$_POST["sans"];
 
-	$pic="UserPics/".$_FILES["pic"]["name"];
-	move_uploaded_file($_FILES["pic"]["tmp_name"],$pic);
+	
 
-	$q="insert into Users values('$uid',$pwd,'$username','$eid','$gn','$pic','$sque','$sans')";
-	$rs=mysql_query($q,$con);
-		print("Data Entered Successfully");
-	mysql_close($con);
+	$sql = "INSERT INTO Users (id, password, username, email, gender) VALUES('$uid','$pwd','$username','$eid','$gn')";
+
+	if (mysqli_query($con, $sql)) {
+	echo "New record created successfully, please go back and login";
+	?>
+	<a href="index.html">Back</a>
+	<?php
+
+	} else {
+	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($con);
 }
 
 ?>

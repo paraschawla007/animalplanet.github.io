@@ -3,21 +3,19 @@ session_start();
 
 if(isset($_POST["sb"]))
 	{
-		$con=mysql_connect("localhost","root","");
+		$con=mysqli_connect("localhost","root","","AnimalPlanet");
 		if(!$con)
 			die("<h1>DataBase Connection Error</h1>");
-
-		mysql_select_db("AnimalPlanet");
 
 		$uid=$_POST["uid"];
 		$pwd=$_POST["pwd"];
 
-		$q="select * from Users where UserID='$uid' and Password='$pwd'";
+		$q="select * from Users WHERE id='$uid' and password='$pwd'";
 		
-			$rs=mysql_query($q,$con);
-			$rec=mysql_fetch_array($rs,MYSQL_ASSOC);
-			$UserID=$rec["UserID"];
-			$Password=$rec["Password"];
+			$rs=mysqli_query($con,$q);
+			$rec=$rs->fetch_assoc();
+			$UserID=$rec["id"];
+			$Password=$rec["password"];
 			if($UserID==$uid && $Password==$pwd)
 			{
 				$_SESSION["uid"]=$UserID;
@@ -27,7 +25,7 @@ if(isset($_POST["sb"]))
 			}
 			else
 				die("ID does not exist.PLEASE REGISTER FIRST");
-			mysql_close($con);
+			mysqli_close($con);
 		}
 		/*	{
 				$q="select * from admin where UserID='$uid' and Password=$pwd";
@@ -44,21 +42,18 @@ if(isset($_POST["sb"]))
 			}*/
 			if(isset($_POST["sb1"]))
 	{
-		$con=mysql_connect("localhost","root","");
+		$con=mysqli_connect("localhost","root","","AnimalPlanet");
 		if(!$con)
 			die("<h1>DataBase Connection Error</h1>");
-
-		mysql_select_db("AnimalPlanet");
-
 		$uid=$_POST["uid"];
 		$pwd=$_POST["pwd"];
 
-		$q="select * from admin where UserId='$uid' and Password=$pwd";
+		$q="select * from admin where id='$uid' and password=$pwd";
 		
-			$rs=mysql_query($q,$con);
-			$rec=mysql_fetch_array($rs,MYSQL_ASSOC);
-			$UserID=$rec["UserID"];
-			$Password=$rec["Password"];
+			$rs=mysqli_query($con,$q);
+			$rec=$rs->fetch_assoc();
+			$UserID=$rec["id"];
+			$Password=$rec["password"];
 			if($UserID==$uid && $Password==$pwd)
 			{
 				$_SESSION["uid"]=$UserID;
@@ -68,7 +63,7 @@ if(isset($_POST["sb"]))
 			}
 			else
 				die("INVALID ENTRY");
-		mysql_close($con);
+		mysqli_close($con);
 	}
 
 

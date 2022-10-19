@@ -1,18 +1,16 @@
 <?php
 session_start();
 $uid=$_SESSION["uid"];
-$con=mysql_connect("localhost","root","");
+$con=mysqli_connect("localhost","root","","AnimalPlanet");
 if(!$con)
   die("<h1>Database Connection Error</h1>");
 
-mysql_select_db("AnimalPlanet");
-$q="select * from users where UserId='$uid'";
-$rs=mysql_query($q,$con);
-$rec=mysql_fetch_array($rs,MYSQL_ASSOC);
-$name=$rec["UserName"];
-$pic=$rec["ProfilePic"];
+$q="select * from users where id='$uid'";
+$rs=mysqli_query($con,$q);
+$rec=$rs->fetch_assoc();
+$name=$rec["username"];
 //$ContactNo=$rec["ContactNo"];
-$EmailId=$rec["EMailID"];
+$EmailId=$rec["email"];
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +33,7 @@ $EmailId=$rec["EMailID"];
 <body style="background-image: url('15.jpg'); background-size: cover">
   <div class="well" style="background-image: url('15.jpg'); background-size: cover;padding: 0px"><table width="70%" style="padding: 0px"><tr style="padding: 0px"><td style="padding: 0px"><img src="logo1.jpg" style="width:200px;height:100px"></td><td><h1 style="text-align:center;color:green"><i><u>WELCOME</u></i></h1></td></tr></table></div>
 <?php
-print("<div style='padding: 0px'><table style='padding: 0px'><tr style='padding: 0px'><td style='padding: 0px'><img src=$pic style='width:150px;padding:0px'></td><td><h3>User Name:<b> $name</b></h3><h5>$EmailId</h5></td></tr></table></div>");
+print("<div style='padding: 0px'><table style='padding: 0px'><tr style='padding: 0px'><td style='padding: 0px'></td><td><h3>User Name:<b> $name</b></h3><h5>$EmailId</h5></td></tr></table></div>");
   ?>  
 
 <!--<div class="well" style="background-image: url('15.jpg'); background-size: cover"><h1 style="text-align:center;color:blue"><i><u>Animal Planet</u></i></h1></div>-->
@@ -52,6 +50,7 @@ print("<div style='padding: 0px'><table style='padding: 0px'><tr style='padding:
       <li><a href="Log.php" style="color:black" target=animalwork>Log</a></li>
       <li><a href="ChangeUserPassword.php" style="color:black" target=animalwork>Change Password</a></li>
       <li><a href="SignOut.php" style="color:black" target=_parent >Sign-Out</a></li>
+      <li><a href="contact.php" style="color:black" target=animalwork>Contact Us</a></li>
       <li>
       	<form method=post action=search.php target=animalwork >
       		<input type="text" name=srch id=srch size=50 placeholder="SEARCH" style="background-image:url('srch.png'); background-repeat: no-repeat;padding-left: 25px;margin-top:15px; " >

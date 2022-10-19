@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -37,9 +37,7 @@
 				</tr>
 			</table>
 		</div>
-			<!--<div style="font-size: 25pt;color: white"><img src="logo1.jpg" style="width:150px;height:100px">Welcome to Animal Planet</div>-->
-		
-				
+			<!--<div style="font-size: 25pt;color: white"><img src="logo1.jpg" style="width:150px;height:100px">Welcome to Animal Planet</div>-->				
 
 
 
